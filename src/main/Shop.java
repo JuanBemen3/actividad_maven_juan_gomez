@@ -26,7 +26,7 @@ public class Shop {
 //	private Sale[] sales;
 	private ArrayList<Sale> sales;
 	private int numberSales;
-//hola
+
 	final static double TAX_RATE = 1.04;
 	private static final String ITEMS_FILE = "items.txt";
 
@@ -216,7 +216,7 @@ public class Shop {
 	 */
 	private void readInventory() {
 		// locate file, path and name
-		File f = new File(System.getProperty("user.dir") + File.separator + "files" + File.separator + ITEMS_FILE);
+		File f = new File(System.getProperty("user.dir") + File.separator + "src\\model\\files" + File.separator + ITEMS_FILE);
 		
 		try {			
 			// wrap in proper classes

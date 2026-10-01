@@ -12,7 +12,7 @@ public class DaoImplFile implements Dao {
 
 	@Override
 	public void connect() {
-		usersFile = new File(System.getProperty("user.dir") + File.separator + "files" + File.separator + "users.txt");
+		usersFile = new File(System.getProperty("user.dir") + File.separator + "src\\model\\files" + File.separator + "users.txt");
 	}
 
 	@Override
