@@ -217,7 +217,7 @@ public class Shop {
 	private void readInventory() {
 		// locate file, path and name
 		File f = new File(System.getProperty("user.dir") + File.separator + "src\\model\\files" + File.separator + ITEMS_FILE);
-		
+		//hola
 		try {			
 			// wrap in proper classes
 			FileReader fr;
