@@ -232,15 +232,13 @@ public class Shop {
 			String Linea = "";
 			while((Linea = bf.readLine()) != null)
 			{
-				numeroLinea++;
-				try {
-					Product producto = parseProductLine(Linea);
+
+					numeroLinea++;
+					Product producto = parseProductLine(Linea, numeroLinea);
 					if (producto != null) {
 				        inventory.add(producto);
 				    }
-				}catch(NumberFormatException e) {
-					throw new IllegalArgumentException("El formato de la linea: "+ numeroLinea);
-				}
+
 				
 
 			    
@@ -262,12 +260,13 @@ public class Shop {
 	/**
 	 * Convert a valid line from items.txt into a Product.
 	 */
-	private Product parseProductLine(String line) {
+	private Product parseProductLine(String line, int numeroLinea) {
 		// TODO RA1-ISSUE-04: validar camps, convertir preu i estoc, i retornar un Product.
 		String[] campos = line.split(";");  
-		String nombre = campos[0].split(":")[1];
-		try {
+		
 
+		try {
+				String nombre = campos[0].split(":")[1];
 			    double precio = Double.parseDouble(campos[1].split(":")[1]);
 			    int stock = Integer.parseInt(campos[2].split(":")[1]);
 			    
@@ -277,9 +276,13 @@ public class Shop {
 		    
 		}catch (NumberFormatException e) {
 			// TODO RA1-ISSUE-05: decidir com es tracten les linies mal formades.
-		        System.out.println("Error en la linea: " + line);
-		        return null;
+			System.out.println("El formato de la linea: "+ numeroLinea + " es incorrecto");		        
+			return null;
 		        
+		}catch (ArrayIndexOutOfBoundsException e) {
+			
+			System.out.println("Un campo de la linea: "+numeroLinea +" esta incompleto");
+			return null;
 		}
 		    
 	}
