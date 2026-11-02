@@ -100,8 +100,11 @@ public class Shop {
 	public static void main(String[] args) {
 		Shop shop = new Shop();
 
-		// load inventory from external data
-		shop.loadInventory();
+		if(!shop.loadInventory()) {
+			
+			System.out.println("Programa finalizado por errores en el archivo");
+			return; //TERMINARA LA EJECUCION DEL PROGRAMA
+		}
 		
 		// init session as employee
 		shop.initSession();
@@ -207,19 +210,19 @@ public class Shop {
 	/**
 	 * load initial inventory to shop
 	 */
-	public void loadInventory() {
+	public boolean loadInventory() {
 //		addProduct(new Product("Manzana", new Amount(10.00), true, 10));
 //		addProduct(new Product("Pera", new Amount(20.00), true, 20));
 //		addProduct(new Product("Hamburguesa", new Amount(30.00), true, 30));
 //		addProduct(new Product("Fresa", new Amount(5.00), true, 20));
 		// now read from file
-		this.readInventory();
+		return this.readInventory();
 	}
 
 	/**
 	 * read inventory from file
 	 */
-	private void readInventory() {
+	private boolean readInventory() {
 		
 		File itemsFile = new File(System.getProperty("user.dir") + File.separator + "src" + 
 		File.separator + "model"+ File.separator + "files" + File.separator + ITEMS_FILE);
@@ -237,24 +240,35 @@ public class Shop {
 					Product producto = parseProductLine(Linea, numeroLinea);
 					if (producto != null) {
 				        inventory.add(producto);
+
+				    } else {
+				    	System.out.println("Error en la linea: " + numeroLinea);
+				    	return false;
 				    }
-
-				
-
 			    
 			}
+			
+			if(numeroLinea == 0) {
+				System.out.println("El archivo esta vacio");
+				return false;
+			}
+			
+			return true;
+			
 		} catch (FileNotFoundException e) {
 			
 			e.printStackTrace();
+			return false;
+		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		
 		
 		// TODO RA1-ISSUE-04: delegar la conversio de cada linia a parseProductLine.
 		// TODO RA1-ISSUE-11: tractar fitxer absent o error de lectura amb un missatge comprensible.
-		System.out.println("RA1-ISSUE-03 pendent: encara no s'ha carregat " + itemsFile.getPath());
 	}
 
 	/**
