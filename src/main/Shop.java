@@ -388,7 +388,8 @@ public class Shop {
 	 */
 	public void removeProduct() {
 		// TODO RA1-ISSUE-08: retirar un Product de inventory sense alterar la resta.
-		System.out.println("RA1-ISSUE-08 pendent: encara no es poden eliminar articles.");
+		// System.out.println("RA1-ISSUE-08 pendent: encara no es poden eliminar articles.");
+		
 	}
 
 	/**
@@ -396,7 +397,39 @@ public class Shop {
 	 */
 	public void addStock() {
 		// TODO RA1-ISSUE-07: trobar un Product i actualitzar el seu estoc.
-		System.out.println("RA1-ISSUE-07 pendent: encara no es pot modificar l'estoc.");
+		// System.out.println("RA1-ISSUE-07 pendent: encara no es pot modificar l'estoc.");
+		CONSOLE.nextLine();
+
+	    System.out.println("¿De que producto desea modificar el stock?");
+	    String nombre = CONSOLE.nextLine();
+
+	    Product producto = findProduct(nombre);
+
+	    if (producto == null) {
+	        System.out.println("Error: el producto no existe.");
+	        return;
+	    }
+
+	    System.out.println("Stock actual: " + producto.getStock());
+
+	    try {
+	        System.out.print("Introduce el nuevo stock: ");
+	        int nuevoStock = Integer.parseInt(CONSOLE.nextLine());
+
+	        if (nuevoStock < 0) {
+	            System.out.println("Error: el stock no puede ser negativo.");
+	            return;
+	        }
+
+	        producto.setStock(nuevoStock);
+	        producto.setAvailable(nuevoStock > 0);
+
+	        System.out.println("Stock actualizado correctamente.");
+	        System.out.println("Nuevo stock: " + producto.getStock());
+
+	    } catch (NumberFormatException e) {
+	        System.out.println("Error: debes introducir un numero entero.");
+	    }
 	}
 
 	/**
