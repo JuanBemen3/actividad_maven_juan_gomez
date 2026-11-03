@@ -389,7 +389,26 @@ public class Shop {
 	public void removeProduct() {
 		// TODO RA1-ISSUE-08: retirar un Product de inventory sense alterar la resta.
 		// System.out.println("RA1-ISSUE-08 pendent: encara no es poden eliminar articles.");
-		
+		CONSOLE.nextLine();
+
+	    System.out.print("Introduce el nombre del producto a eliminar: ");
+	    String nombre = CONSOLE.nextLine();
+
+	    if (nombre.isBlank()) {
+	        System.out.println("Error: el nombre no puede estar vacio.");
+	        return;
+	    }
+
+	    Product producto = findProduct(nombre);
+
+	    if (producto == null) {
+	        System.out.println("Error: el producto no existe.");
+	        return;
+	    }
+
+	    inventory.remove(producto);
+
+	    System.out.println("Producto eliminado correctamente: " + producto.getName());
 	}
 
 	/**
