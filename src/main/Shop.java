@@ -321,10 +321,67 @@ public class Shop {
 	/**
 	 * add a new product to inventory getting data from console
 	 */
+
+
 	public void addProduct() {
-		// TODO RA1-ISSUE-06: demanar dades minimes, crear un Product i afegir-lo a inventory.
-		System.out.println("RA1-ISSUE-06 pendent: encara no es poden afegir articles.");
-	}
+
+	// TODO RA1-ISSUE-06: demanar dades minimes, crear un Product i afegir-lo a inventory.
+	// System.out.println("RA1-ISSUE-06 pendent: encara no es poden afegir articles.");
+	
+		if (isInventoryFull()) {
+			System.out.println("El inventario esta lleno (maximo 10 productos).");
+			return;
+		}
+
+		CONSOLE.nextLine();
+
+		System.out.print("Nombre del producto: ");
+		String nombre = CONSOLE.nextLine();
+
+		if (nombre.isBlank()) {
+			System.out.println("Error: el nombre no puede estar vacio.");
+			return;
+		}
+
+		if (findProduct(nombre) != null) {
+			System.out.println("Error: ya existe un producto con ese nombre.");
+			return;
+		}
+
+		try {
+			System.out.print("Precio de compra: ");
+			double precio = Double.parseDouble(CONSOLE.nextLine());
+			
+			if (precio <= 0) {
+				System.out.println("Error: el precio debe ser positivo.");
+				return;
+			}
+
+			System.out.print("Stock inicial: ");
+			int stock = Integer.parseInt(CONSOLE.nextLine());
+
+			if (stock < 0) {
+				System.out.println("Error: el stock no puede ser negativo.");
+            return;
+			}
+		    
+
+			Product producto = new Product(
+					nombre,
+					new Amount(precio),
+					stock > 0,
+					stock
+					);
+
+			addProduct(producto);
+
+			System.out.println("Producto agregado: " + producto.getName());
+
+		} catch (NumberFormatException e) {
+			System.out.println("el precio o el stock tiene formatos incorrectos");
+		}
+}
+
 
 	/**
 	 * remove a new product to inventory getting data from console
